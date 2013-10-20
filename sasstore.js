@@ -153,7 +153,7 @@
          */
         this.getItem = function(itemNum) {
             if (itemNum*config.itemSize + config.itemSize > cachedValue.length || itemNum < 0) {
-                throw new Error("Invalid item location.");
+                throw "Invalid item location.";
             }
             return cachedValue.substring(itemNum*config.itemSize, itemNum*config.itemSize+config.itemSize);
         };
@@ -165,11 +165,11 @@
          */
         this.setItem = function(itemNum, itemVal) {
             if (itemVal.length != config.itemSize) {
-                throw new Error("wrong item size");
+                throw "wrong item size";
             } else if (itemNum*config.itemSize + config.itemSize > cachedValue.length || itemNum < 0) {
-                throw new Error("position out of range");
+                throw "position out of range";
             } else if (!checkIfBinary(itemVal)) {
-                throw new Error("not binary data");
+                throw "not binary data";
             }
             cachedValue = cachedValue.slice(0,itemNum*config.itemSize) +
                                itemVal +
