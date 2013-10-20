@@ -13,12 +13,28 @@
         var cachedValue;
         var prevStore = localStorage.getItem(config.id);
         var prevConfig = localStorage.getItem(config.id+"-config");
-        if (prevStore && prevConfig && JSON.parse(prevConfig) == config) {
+        if (prevStore && prevConfig && compareConfig(prevConfig)) {
             cachedValue = yEncToBinary(prevStore);
         } else {
             cachedValue = new Array(config.length*config.itemSize+1).join("0");
             localStorage.setItem(config.id, binaryToYEnc(cachedValue));
             localStorage.setItem(config.id+"-config", JSON.stringify(config));
+        }
+
+        /**
+         * Compares the given config to the current config to see if
+         * they are the same.
+         * @param  {string} oldConfigString Stringified json of old config.
+         * @return {boolean}                Status of if config and oldconfig are the same.
+         */
+        function compareConfig(oldConfigString) {
+            var oldConfig = JSON.parse(oldConfigString)
+            var keys = Object.keys(config);
+            var same = true;
+            for (var i = 0; i < keys.length; i++) {
+                same = same && config[keys[i]] == oldConfig[keys[i]]
+            }
+            return same;
         }
 
         /**
