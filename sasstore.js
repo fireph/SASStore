@@ -166,7 +166,7 @@
         this.setItem = function(itemNum, itemVal) {
             if (itemVal.length != config.itemSize) {
                 throw new Error("wrong item size");
-            } else if (itemNum*config.itemSize + config.itemSize >= cachedValue.length || itemNum < 0) {
+            } else if (itemNum*config.itemSize + config.itemSize > cachedValue.length || itemNum < 0) {
                 throw new Error("position out of range");
             } else if (!checkIfBinary(itemVal)) {
                 throw new Error("not binary data");
